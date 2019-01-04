@@ -1,4 +1,4 @@
-FROM docker push warecorpdev/alpine:latest
+FROM warecorpdev/alpine:latest
 
 ARG 1.15.7
 
