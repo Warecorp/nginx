@@ -15,7 +15,6 @@ node {
          * docker build on the command line */
 
     nginx = docker.build("warecorpdev/nginx:1.15-${env.BUILD_ID}", ".")
-    // slackSend botUser: true, channel: 'https://warecorp.slack.com/services/hooks/jenkins-ci/', message: 'Alpine build started', tokenCredentialId: 'jenkins-token'
     }
 
     stage('Push image') {
@@ -28,7 +27,7 @@ node {
             nginx.push("latest")
         }
     stage('Post') {
-      slackNotifier(currentBuild.currentResult)
+    slackSend botUser: true, channel: 'docker-build', message: 'Done', teamDomain: 'warecorp', tokenCredentialId: 'jenkins-token'
     }
     }
   }
