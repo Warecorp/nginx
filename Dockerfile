@@ -1,6 +1,7 @@
 FROM warecorpdev/alpine:latest
 
 ARG 1.15.7
+LABEL maintainer="borisdr@gmail.com"
 
 ENV NGINX_VER="1.15.7" \
     NGINX_UP_VER="0.9.1" \
