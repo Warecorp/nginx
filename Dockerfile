@@ -1,4 +1,4 @@
-FROM warecorpdev/alpine:latest
+FROM warecorpdev/alpine:3.8-latest
 
 ARG 1.15.7
 LABEL maintainer="borisdr@gmail.com"

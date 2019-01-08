@@ -28,7 +28,7 @@ node {
         }
     stage('Post') {
     slackSend botUser: true, channel: 'docker-build', message: 'Nginx Image rebuilded', teamDomain: 'warecorp', tokenCredentialId: 'jenkins-token'
-    }
+      }
     }
   }
 }
