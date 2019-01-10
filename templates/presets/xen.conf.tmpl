@@ -40,6 +40,9 @@ location /install/templates/ {
 }
 location /internal_data/ {
     internal;
+    add_header Etag $upstream_http_etag;
+    add_header X-Frame-Options SAMEORIGIN;
+    add_header X-Content-Type-Options nosniff;
 }
 location /library/ { #legacy
     internal;
