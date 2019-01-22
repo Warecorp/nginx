@@ -64,6 +64,8 @@ RUN set -ex; \
         yajl-dev; \
     \
     # Modsecurity lib.
+    dockerize_url="https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz"; \
+    wget -qO- "${dockerize_url}" | tar xz -C /usr/local/bin; \
     cd /tmp; \
     git clone --depth 1 -b "v${MODSECURITY_VER}" --single-branch https://github.com/SpiderLabs/ModSecurity; \
     cd ModSecurity; \
