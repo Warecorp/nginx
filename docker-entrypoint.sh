@@ -47,7 +47,7 @@ process_templates() {
     if [[ -n "${NGINX_VHOST_PRESET}" ]]; then
         _gotpl "presets/${NGINX_VHOST_PRESET}.conf.tmpl" "/etc/nginx/preset.conf"
 
-        if [[ "${NGINX_VHOST_PRESET}" =~ ^drupal8|drupal7|drupal6|wordpress|vanilla|xen|php$ ]]; then
+        if [[ "${NGINX_VHOST_PRESET}" =~ ^drupal8|drupal7|drupal6|wordpress|vanilla|xen|pmt|php$ ]]; then
             _gotpl "includes/fastcgi.conf.tmpl" "/etc/nginx/fastcgi.conf"
             _gotpl "includes/upstream.php.conf.tmpl" "/etc/nginx/upstream.conf"
         elif [[ "${NGINX_VHOST_PRESET}" =~ ^http-proxy|django|redmine$ ]]; then
