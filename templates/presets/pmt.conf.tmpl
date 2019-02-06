@@ -1,0 +1,25 @@
+{{ $static := (getenv "NGINX_STATIC_EXT_REGEX" "css|cur|js|jpe?g|gif|htc|ico|png|xml|otf|ttf|eot|woff|woff2|svg|mp4|svgz|ogg|ogv|pdf|pptx?|zip|tgz|gz|rar|bz2|doc|xls|exe|tar|mid|midi|wav|bmp|rtf|txt") }}
+
+include fastcgi.conf;
+
+{{ $index := (getenv "NGINX_FASTCGI_INDEX" "index.php") }}
+index {{ getenv "NGINX_INDEX_FILE" "index.php index.html" }};
+
+location /assets/manifest.json {
+    return 403;
+}
+
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+
+location ~ \.php$ {
+    try_files $uri /index.php =404;
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass php;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+    fastcgi_read_timeout 300;
+}
