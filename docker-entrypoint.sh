@@ -50,7 +50,7 @@ process_templates() {
         if [[ "${NGINX_VHOST_PRESET}" =~ ^drupal8|drupal7|drupal6|wordpress|vanilla|xen|pmt|php$ ]]; then
             _gotpl "includes/fastcgi.conf.tmpl" "/etc/nginx/fastcgi.conf"
             _gotpl "includes/upstream.php.conf.tmpl" "/etc/nginx/upstream.conf"
-        elif [[ "${NGINX_VHOST_PRESET}" =~ ^http-proxy|django|redmine$ ]]; then
+        elif [[ "${NGINX_VHOST_PRESET}" =~ ^http-proxy|django|goodcarts|redmine$ ]]; then
             if [[ -z "${NGINX_BACKEND_HOST}" && "${NGINX_VHOST_PRESET}" == "django" ]]; then
                 export NGINX_BACKEND_HOST="python";
             fi
