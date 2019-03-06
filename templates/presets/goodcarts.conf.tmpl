@@ -26,29 +26,34 @@
   #   break;
   # }
 
+  location ~ /\. {
+    deny all;
+  }
+
+  location ~* ^.+\.(rb|log)$ {
+    deny all;
+  }
+
+  # serve static (compiled) assets directly if they exist (for rails production)
+  location ~ ^/(assets|images|javascripts|stylesheets|swfs|system)/ {
+    try_files $uri @rails;
+
+    access_log off;
+    gzip_static on; # to serve pre-gzipped version
+
+    expires max;
+    add_header Cache-Control public;
+
+    # Some browsers still send conditional-GET requests if there's a
+    # Last-Modified header or an ETag header even if they haven't
+    # reached the expiry date sent in the Expires header.
+    add_header Last-Modified "";
+    add_header ETag "";
+    break;
+  }
+
+  # send non-static file requests to the app server
   location / {
-    location ~* ^.+\.(?:{{ $static }})$ {
-        access_log {{ getenv "NGINX_STATIC_ACCESS_LOG" "off" }};
-        tcp_nodelay {{ getenv "NGINX_STATIC_TCP_NODELAY" "off" }};
-        expires {{ getenv "NGINX_STATIC_EXPIRES" "7d" }};
-
-        add_header Pragma "cache";
-        add_header Cache-Control "public";
-
-        open_file_cache {{ getenv "NGINX_STATIC_OPEN_FILE_CACHE" "max=1000 inactive=30s" }};
-        open_file_cache_valid {{ getenv "NGINX_STATIC_OPEN_FILE_CACHE_VALID" "30s" }};
-        open_file_cache_min_uses {{ getenv "NGINX_STATIC_OPEN_FILE_CACHE_MIN_USES" "2" }};
-        open_file_cache_errors {{ getenv "NGINX_STATIC_OPEN_FILE_CACHE_ERRORS" "off" }};
-
-        location ~* ^.+\.(?:svgz|tgz|gz)$ {
-            gzip off;
-            add_header Content-Encoding gzip;
-        }
-
-        {{ if getenv "NGINX_STATIC_404_TRY_INDEX" }}
-        try_files $uri @rails;
-        {{ end }}
-    }
     try_files $uri @rails;
   }
 
