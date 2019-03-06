@@ -39,7 +39,8 @@ process_templates() {
     _gotpl "nginx.conf.tmpl" "/etc/nginx/nginx.conf"
     _gotpl "vhost.conf.tmpl" "/etc/nginx/conf.d/vhost.conf"
     _gotpl "includes/defaults.conf.tmpl" "/etc/nginx/defaults.conf"
-
+    _gotpl "start.tpl" "/etc/nginx/start"
+    chmod 755 /etc/nginx/start
     if [[ -n "${NGINX_MODSECURITY_ENABLED}" ]]; then
         _gotpl "includes/modsecurity.conf.tmpl" "/etc/nginx/modsecurity/main.conf"
     fi

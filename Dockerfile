@@ -213,6 +213,7 @@ RUN set -ex; \
     { \
         echo -n 'deploy ALL=(root) NOPASSWD:SETENV: ' ; \
         echo -n '/usr/local/bin/init_volumes, ' ; \
+        echo -n '/etc/nginx/start, ' ; \
         echo '/usr/sbin/nginx' ; \
     } | tee /etc/sudoers.d/deploy; \
     \
@@ -229,10 +230,10 @@ USER deploy
 COPY bin /usr/local/bin
 COPY templates /etc/gotpl/
 COPY docker-entrypoint.sh /
-COPY mime.types /etc/nginx/
 
 WORKDIR $APP_ROOT
 EXPOSE 80
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["sudo", "nginx"]
+# CMD ["sudo", "nginx"]
+CMD ["/etc/nginx/start"]
