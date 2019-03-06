@@ -229,6 +229,7 @@ USER deploy
 COPY bin /usr/local/bin
 COPY templates /etc/gotpl/
 COPY docker-entrypoint.sh /
+COPY mime.types /etc/nginx/
 
 WORKDIR $APP_ROOT
 EXPOSE 80
