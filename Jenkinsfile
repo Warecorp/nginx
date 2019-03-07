@@ -5,7 +5,7 @@ node {
     docker.withRegistry('', 'dockerwc') {
 
     stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspaces */
+        /* Let's make sure we have the repository cloned to our workspaces   */
 
         checkout scm
     }
