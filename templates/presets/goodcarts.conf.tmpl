@@ -54,6 +54,9 @@
 
   # send non-static file requests to the app server
   location / {
+    add_header Access-Control-Allow-Origin "*";
+    add_header Access-Control-Allow-Methods "GET, POST, PATCH, PUT, DELETE, OPTIONS, HEAD";
+    add_header Access-Control-Allow-Headers "accept, content-type, x-csrf-token";    
     try_files $uri @rails;
   }
 
