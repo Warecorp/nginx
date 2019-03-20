@@ -10,11 +10,10 @@ location /assets/manifest.json {
 }
 
 location / {
-    try_files $uri $uri/ /index.html;
+   try_files $uri $uri/ /index.html;
 }
 
-
-location / {
+location /api/ {
    try_files $uri $uri/ /index.php?$query_string;
 }
 
